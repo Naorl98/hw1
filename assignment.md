@@ -1,82 +1,52 @@
-# mesh-simplification
+# hw1 - 318664190_209133826
 
-This repository contains the first assignment of Computer Graphics class from the Computer Science course of Federal University of Pelotas (UFPel), Brazil.
-
+the arthurs:
+-Naor Ladani - 318664190
+-Itamar Cohen - 209133826
 
 ## Description
 
-Implement a simple mesh simplification using:
+### Interfaces:
+Member - The observer inteface, has a "Update" method that save all the changes about the string in the admin Observerable.
+Sender - The Observerable interface, save list of all the members that listen to him, do changes to the string and send the update to the members that in the list, has a register and unregister method that add or remove members to the list.
 
-- priority queue
-- vertex removal
-
-## Building on Linux
-
-I have used Ubuntu 14.04 for the project. For other versions the instructions should be similar (check [OpenGL Tutorial](http://www.opengl-tutorial.org/) for other distributions or operating systems).
-
-### Dependencies
-
-- Install the latest drivers
-- Install all needed compilers, tools & libs:
-
-``` $ sudo apt-get install cmake make g++ libx11-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxrandr-dev libxext-dev libxi-dev ```
-
-### Building
-
-After clone or download (and unzip) the repository go to the root and type:
-
+### Classes:
+GroupAdmin - implements "Sender" interface, save UndoableStringBuilder object and list of ConcreteMember:
 ```
-$ cd Assignment-01/external/glfw-3.0.3
-$ cmake .
-$ make all
-$ cd ../..
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make all
+$ usb - UndoableStringBuilder variable
+$ append - Method that call to append method in UndoableStringBuilder class and call to update method of ConcrteMember for all the members in Members list.
+$ undo - Method that call to undo method in UndoableStringBuilder class with usb and call to update method of ConcrteMember for all the members in Members list.
+$ insert - Method that call to insert method in UndoableStringBuilder class with usb and call to update method of ConcrteMember for all the members in Members list.
+$ delete - Method that call to delete method in UndoableStringBuilder clas with usb s and call to update method of ConcrteMember for all the members in Members list.
+$ register - Method that add a new member to the Members list.
+$ unregister - Method that remove member to the Members list and set his usb to new UndoableStringBuilder variable.
 ```
+ConcreteMember - Implements "Mmeber", save UndoableStringBuilder object, and listen and wait for update:
+```
+$ usb - UndoableStringBuilder variable
+$ Update - Method that save in usb the null.
+```
+UndoableStringBuilder - A StringBuilder method with a undo option.
 
-I've used CLion IDE for running and debugging, so the execution could be done using the graphical interface of the IDE.
+Tests - Do tests on the classes and check if the observer work and give memory data of the members variable.
 
+## The observer temple
 
-## Mesh Simplification
+![Half-Edge Collapse] images.githubusercontent.com/118805710/210023920-ff0a5f49-2100-4978-a51b-298b174f0890.png)
 
+#### how it work:
+The observer - ConcrateMember listen to GroupAdmin.
+The Observerable - GroupAdmin has ConcrateMember type list, and send update to all the members in list when he does changes in the variable usb.
+When member need to join and fet update of usb, he use the register method of GroudAdmin and enter to the "Members" list,
+and when he need to get out he use the unregister method of GroudAdmin and leave to the "Members" list
+ConcrateMember wait to the update from GroupAdmin and change his usb variable to the UndoableStringBuilder variable that he get from the GroupAdmin.
+The code use shallow copy on usb variable.
 
+## Tests
 
-### 1. Priority Queue
+In The tests we can see that all the method work perfect with out erors.
+About the memory settings:
+We can see that because the shallow copy, all the members use the same place in the memory and dont catches a lot of space in the memory.
 
-The heuristic defined for vertex removal is described on pseudo-code as follows:
+Same to the "Members" list, we can see that all the members in the list togther catches space like one variable plus the size of the variables count.
 
-- Go through all the vertex and calculate their connection with others (edges)
-- Store the edges on a 2D vector together with the 'index' of its vertex
-- Sort the vector by the size of the edges (smallest first)
-- Get the first position of the vector which contains the two vertex to be compared
-- Verify which of the two vertex has more connections (v1) and choose to be removed
-
-
-### 2. Half-Edge Collapse
-
-The technique chosen for vertex removal was the *Half-Edge Collapse* which works removing a vertex and reconnecting all its connections to another vertex:
-
-
-![Half-Edge Collapse](http://jcae.sourceforge.net/amibe-doc/org/jcae/mesh/amibe/ds/doc-files/AbstractHalfEdge-2.png)
-
-
-Pseudo-code:
-
-- Go to the vertex to be removed (v1 - defined on priority queue)
-- Check all the vertex that are connected to that vertex
-- Remove v1 and reconnect all its connections to v2  
-
-
-## References
-
-
-David Luebke, Benjamin Watson, Jonathan D. Cohen, Martin Reddy, and Amitabh Varshney. 2002. *Level of Detail for 3D Graphics*. Elsevier Science Inc., New York, NY, USA.
-
-OpenGL Tutorials. *Tutorial 1: Opening a Window*, Available at: http://www.opengl-tutorial.org/beginners-tutorials/tutorial-1-opening-a-window/ (Accessed: 3rd April 2016).
-
-Mesh Simplification. Standford course (CS 468-10-fall) Lecture Notes. Available on: http://graphics.stanford.edu/courses/cs468-10-fall/LectureSlides/08_Simplification.pdf
-
-Shene, Ching-Kuang. *Mesh Simplification*. Classes notes. Michigan Technological University. Available on:
-http://www.cs.mtu.edu/~shene/COURSES/cs3621/SLIDES/Simplification.pdf
