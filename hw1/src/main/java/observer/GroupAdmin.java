@@ -29,7 +29,7 @@ public class GroupAdmin implements Sender {
         this.members.remove(obj);
     }
      /**
-     * The methodInserts the string into this character sequence,
+     * The function inserts the string into this character sequence,
      * and send update to the members that in the list.
      * @param offset Point to the start insert location.
      * @param str The characters that we need to insert.
@@ -43,10 +43,10 @@ public class GroupAdmin implements Sender {
         }
     }
      /**
-     * The
+     * The function appends the specified string to this character sequence'
      * and send update to the members that in the list.
-     * @param offset Point to the start insert location.
-     * @param str The characters that we need to insert.
+     * @param str the new characters
+     * @return the StringBuilder object after the changes
      */
     @Override
     public void append(String obj) {
@@ -55,8 +55,16 @@ public class GroupAdmin implements Sender {
             member.update(usb);
         }
     }
-    // Removes the characters in a substring of this sequence.
-    //send update to the members that in the list.
+    /**
+     * The function removes the characters in a substring of this sequence.
+     * The substring begins at the specified start and extends to
+     * the character at index end - 1 or to the end of the sequence
+     * if no such character exists. If start is equal to end,
+     * no changes are made.
+     * send update to the members that in the list.
+     * @param start Point to the location of the first character.
+     * @param end Point to border delete location.
+     */
     @Override
     public void delete(int start, int end) {
         this.usb.delete(start, end);
@@ -64,11 +72,11 @@ public class GroupAdmin implements Sender {
             member.update(usb);
         }
     }
-
-    // Erases the last change done to the document, reverting
-    // it to an older state.
-    //send update to the members that in the list.
-
+    /**
+    * Erases the last change done to the document, reverting
+    * it to an older state,
+    * and send update to the members that in the list.
+    */
     @Override
     public void undo() {
         this.usb.undo();
