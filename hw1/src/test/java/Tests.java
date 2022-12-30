@@ -14,53 +14,41 @@ public class Tests {
         String s1 = "Alice";
         String s2 = "Bob";
     	ConcreteMember a = new ConcreteMember();
-		ConcreteMember b = new ConcreteMember();
-		ConcreteMember c = new ConcreteMember();
-		ConcreteMember d = new ConcreteMember();
-		GroupAdmin admin = new GroupAdmin();
-		admin.register(a);
-		admin.register(b);
-		admin.register(c);
-		admin.register(d);
-		admin.append(s1);
-		logger.info(()->JvmUtilities.objectFootprint(a));
-		logger.info(()->JvmUtilities.objectFootprint(b));
-		logger.info(()->JvmUtilities.objectFootprint(d));
-
-		logger.info(()->JvmUtilities.objectFootprint(a,b));
-		logger.info(()->JvmUtilities.objectTotalSize(b));
-		logger.info(()->JvmUtilities.objectTotalSize(d));
-
-		logger.info(()->JvmUtilities.objectTotalSize(a));
-
-		logger.info(() -> JvmUtilities.jvmInfo());
-		assertEquals(a.getUsb().toString(), s1);
-		assertEquals(a.getUsb().toString(), b.getUsb().toString());
-		assertEquals(c.getUsb().toString(), b.getUsb().toString());
-		assertEquals(d.getUsb().toString(), a.getUsb().toString());
-		admin.unregister(d);
-		admin.append(s2);
-		assertEquals(a.getUsb().toString(), "AliceBob");
-		assertEquals(a.getUsb().toString(), b.getUsb().toString());
-		admin.unregister(d);
-		admin.insert(5,",middle,");
-		assertEquals(a.getUsb().toString(), "Alice,middle,Bob");
-		assertEquals(b.getUsb().toString(), "Alice,middle,Bob");
-		assertNotEquals(d.getUsb().toString(), "Alice,middle,Bob");
-		admin.delete(5,13);
-		assertEquals(a.getUsb().toString(), "AliceBob");
-		assertNotEquals(b.getUsb().toString(), "Alice,middle,Bob");
-		assertEquals(a.getUsb().toString(), c.getUsb().toString());
-		assertNotEquals(b.getUsb().toString(), d.getUsb().toString());
-		logger.info(()->JvmUtilities.objectFootprint(a));
-		logger.info(()->JvmUtilities.objectFootprint(b));
-		logger.info(()->JvmUtilities.objectFootprint(d));
-
-		logger.info(()->JvmUtilities.objectFootprint(a,d));
-		logger.info(()->JvmUtilities.objectTotalSize(b));
-		logger.info(()->JvmUtilities.objectTotalSize(d));
-
-		logger.info(()->JvmUtilities.objectTotalSize(a));
-
+	ConcreteMember b = new ConcreteMember();
+	ConcreteMember c = new ConcreteMember();
+	GroupAdmin admin = new GroupAdmin();
+	admin.register(a);
+	admin.register(b);
+	admin.register(c);
+	admin.append(s1);
+	logger.info(()->JvmUtilities.objectFootprint(a));
+	logger.info(()->JvmUtilities.objectFootprint(b));
+	logger.info(()->JvmUtilities.objectFootprint(c));
+	logger.info(()->JvmUtilities.objectFootprint(a,b,c));
+	logger.info(()->JvmUtilities.objectTotalSize(a));
+	logger.info(()->JvmUtilities.objectTotalSize(b));
+	logger.info(()->JvmUtilities.objectTotalSize(c));
+	logger.info(() -> JvmUtilities.jvmInfo());
+	assertEquals(a.getUsb().toString(), s1);
+	assertEquals(a.getUsb().toString(), b.getUsb().toString());
+	assertEquals(c.getUsb().toString(), b.getUsb().toString());
+	assertEquals(c.getUsb().toString(), a.getUsb().toString());
+	admin.unregister(c);
+	admin.append(s2);
+	assertEquals(a.getUsb().toString(), "AliceBob");
+	assertEquals(a.getUsb().toString(), b.getUsb().toString());
+	admin.insert(5,",middle,");
+	assertEquals(a.getUsb().toString(), "Alice,middle,Bob");
+	assertEquals(b.getUsb().toString(), "Alice,middle,Bob");
+	admin.delete(5,13);
+	assertEquals(a.getUsb().toString(), "AliceBob");
+	assertEquals(b.getUsb().toString(), "Alice,middle,Bob");
+	assertEquals(a.getUsb().toString(), b.getUsb().toString());
+	logger.info(()->JvmUtilities.objectFootprint(a));
+	logger.info(()->JvmUtilities.objectFootprint(b));
+	logger.info(()->JvmUtilities.objectFootprint(a,b);
+	logger.info(()->JvmUtilities.objectTotalSize(a));
+	logger.info(()->JvmUtilities.objectTotalSize(b));
+	logger.info(() -> JvmUtilities.jvmInfo());
     }
 }
