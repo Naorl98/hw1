@@ -19,4 +19,5 @@ public class ConcreteMember implements Member{
     */
     public UndoableStringBuilder getUsb(){
         return this.usb;
+    }
 }
