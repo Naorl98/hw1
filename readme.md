@@ -32,7 +32,7 @@ Tests - Do tests on the classes and check if the observer work and give memory d
 
 ## The observer temple
 
- (images.githubusercontent.com/118805710/210023920-ff0a5f49-2100-4978-a51b-298b174f0890.png)
+![Temple](https://user-images.githubusercontent.com/118805710/210025459-3247b79a-4021-42b2-ae9b-02aa684cdd0d.png)
 
 #### how it work:
 The observer - ConcrateMember listen to GroupAdmin.
